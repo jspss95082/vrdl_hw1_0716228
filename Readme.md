@@ -23,7 +23,7 @@ VRDL HW1 0716228
 3. `python inference.py`
 
 ## Train the model
-1. Download [training_image](https://drive.google.com/drive/folders/1Pea5XbB9RwnOk02V9UNh9UIZwVOatUwT?usp=sharing) from the given link
+1. Download [training_image](https://drive.google.com/drive/folders/17R2k2QDDkP3F4sM---7XTf2C0gTYHPui?usp=sharing) from the given link
 2. `python highest.py --epochs 30 --batch-size 10 --seed 7`
 
 ###### tags: `VRDL` `Resnext101-32*8d`
