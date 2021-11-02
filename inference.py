@@ -52,8 +52,7 @@ class MyDataset(Dataset):
         return len(self.imgs)
 
 
-def make_answer(model, device,filename):
-
+def make_answer(model, device, filename):
 
     fh = open('classes.txt', 'r')
     number_to_bird = {}
@@ -67,15 +66,19 @@ def make_answer(model, device,filename):
 
     transform_ori = transforms.Compose([
         transforms.ToTensor(),
-        transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
-        transforms.Resize((300,300)),
+        transforms.Normalize(mean=(0.485, 0.456, 0.406),
+                             std=(0.229, 0.224, 0.225)),
+        transforms.Resize((300, 300)),
         # transforms.ToPILImage()
 
-        
-        ]
+
+    ]
     )
-    test_data=MyDataset(txt='testing_img_order.txt', transform=transform_ori, image_folder = 'testing_images/')
-    test_loader = DataLoader(test_data, 1,shuffle=False,num_workers = 8,pin_memory=True)
+    test_data = MyDataset(txt='testing_img_order.txt',
+                          transform=transform_ori,
+                          image_folder='testing_images/')
+    test_loader = DataLoader(test_data, 1, shuffle=False,
+                             num_workers=8, pin_memory=True)
     model.to(device)
     model.eval()
 
@@ -87,25 +90,28 @@ def make_answer(model, device,filename):
             output = model(data)
             pred = output.argmax(dim=1, keepdim=True)
             ans.append(pred[0][0])  # get the index of the max log-probability
-            
+
     fh = open('testing_img_order.txt', 'r')
     for line in fh:
         line = line.strip('\n')
         picture_name.append(line)
 
     fh.close()
-    
+
     fh = open(filename, 'w')
     for i in range(len(ans)):
-        line = str(picture_name[i]) + ' '+ str(number_to_bird[ans[i].item()+1])+'\n'
+        line = str(picture_name[i]) + ' ' + \
+            str(number_to_bird[ans[i].item()+1])+'\n'
         fh.write(line)
     fh.close()
+
 
 def main():
     device = torch.device("cuda")
     torch.manual_seed(21)
     model = torch.load('model.pt')
-    make_answer(model,device,'answer.txt')
+    make_answer(model, device, 'answer.txt')
 
-if __name__ == '__main__':   
+
+if __name__ == '__main__':
     main()
