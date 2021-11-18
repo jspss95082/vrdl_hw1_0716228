@@ -24,6 +24,8 @@ VRDL HW1 0716228
 
 ## Train the model
 1. Download [training_image](https://drive.google.com/drive/folders/17R2k2QDDkP3F4sM---7XTf2C0gTYHPui?usp=sharing) from the given link
-2. `python make_answer.py --epochs 30 --batch-size 10 --seed 7`
+2. `python highest.py --epochs 30 --batch-size 10 --seed 7`
+
+#### only `inference.ipynb` and `train.py` were wirtten by me, so others don't follow PEP8
 
 ###### tags: `VRDL` `Resnext101-32*8d`
